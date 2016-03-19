@@ -52,4 +52,4 @@ const render = (props) => {
     ]);
 };
 
-module.exports = {init, render, links, changeRoute};
+module.exports = {init, render, changeRoute};

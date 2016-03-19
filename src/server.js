@@ -13,6 +13,7 @@ const app = express();
 const clearCache = () => {
   console.log('Clearing /server/ module cache');
   Object.keys(require.cache).forEach((id) => {
+    console.log(id);
     if (/[\/\\]server[\/\\]/.test(id)) {
       delete require.cache[id];
     }

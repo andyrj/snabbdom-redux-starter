@@ -49,4 +49,4 @@ const render = (props) => {
   ]);
 };
 
-module.exports = {init, view};
+module.exports = {init, render};
