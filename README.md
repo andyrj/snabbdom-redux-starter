@@ -1,9 +1,10 @@
-# AJCES
+# snabbdom-redux-mori-starter
 **WIP**
+Use at your own peril
 
-[![Codacy Badge](https://api.codacy.com/project/badge/grade/bfe1f76098834c8490f786e4a677e13a)](https://www.codacy.com/app/andyrjohnson82/snabbdom-redux-mori-starter-kit)
-[![Codacy Badge](https://api.codacy.com/project/badge/coverage/bfe1f76098834c8490f786e4a677e13a)](https://www.codacy.com/app/andyrjohnson82/snabbdom-redux-mori-starter-kit)
-[![David](https://david-dm.org/andyrj/snabbdom-redux-mori-starter-kit.svg)](https://david-dm.org/andyrj/snabbdom-redux-mori-starter-kit)
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/bfe1f76098834c8490f786e4a677e13a)](https://www.codacy.com/app/andyrjohnson82/snabbdom-redux-mori-starter)
+[![Codacy Badge](https://api.codacy.com/project/badge/coverage/bfe1f76098834c8490f786e4a677e13a)](https://www.codacy.com/app/andyrjohnson82/snabbdom-redux-mori-starter)
+[![David](https://david-dm.org/andyrj/snabbdom-redux-mori-starter-kit.svg)](https://david-dm.org/andyrj/snabbdom-redux-mori-starter)
 
 
 Because when you start over engineering something you might as well go all the way!

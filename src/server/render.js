@@ -19,7 +19,7 @@ const initialState = {
 
 //TODO: use redux saga instead of thunks and acations
 const changeRoute = createAction('CHANGE_ROUTE_UNIVERSAL');
-// change this to use custom template engine server side & express-mapper client
+
 function render(path, callback) {
   initialState.path = path;
   let store = configureStore(mori.toClj(initialState));
