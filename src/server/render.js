@@ -21,11 +21,10 @@ const initialState = {
 const changeRoute = createAction('CHANGE_ROUTE_UNIVERSAL');
 // change this to use custom template engine server side & express-mapper client
 function render(path, callback) {
+  initialState.path = path;
   let store = configureStore(mori.toClj(initialState));
 
   init(store.dispatch);
-
-  store.dispatch(changeRoute(path));
 
   let data = JSON.stringify(mori.toJs(store.getState()));
   let root = toHTML(h('div', 'server side render'));
