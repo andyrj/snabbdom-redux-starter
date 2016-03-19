@@ -50,7 +50,7 @@ if (!PROD_ENV) {
   });
 }
 
-app.use(favicon(__dirname + '/static/images/favicon.ico'));
+app.use(favicon(__dirname + '/images/favicon.ico'));
 
 app.use(express.static('dist'));
 
