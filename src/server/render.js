@@ -11,15 +11,9 @@ const toHTML = require('snabbdom-to-html');
 const initialState = {
   'path': '/',
   'routes': {
-    '/': ['home', true],
-    '/products': ['products', true],
-    '/services': ['services', true],
-    '/blog/:title/': ['blog', false],
-    '/blog': ['blog', true],
-    '/contact': ['contact', true],
-    '/about': ['about', true],
-    '/login': ['login', false],
-    '/register': ['register', false]
+    '/': ['todos', false],
+    '/todos': ['todos', true],
+    '/counters': ['counters', true]
   }
 };
 

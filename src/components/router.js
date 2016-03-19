@@ -5,20 +5,16 @@ import { createAction } from 'redux-actions';
 const h = require('snabbdom/h');
 import { isNode } from '../utils';
 import nav from './nav';
-import views from '../views/index';
-
-const capitalizeFirst = (string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-};
+import { views } from '../views/index';
 
 //using closure here to avoid poluting global scope
+let bSetup = false;
+const hash = HttpHash();
 const setupRoutes = () => {
-  let hash = undefined;
   return () => {
-    if (hash === undefined) {
-      hash = HttpHash();
+    if (!bSetup) {
       Object.keys(routes).forEach((key) => {
-        hash.set(key, capitalizeFirst(routes[key][1]));
+        hash.set(key, routes[key][1]);
       });
       Object.seal(hash);
     }
@@ -28,6 +24,7 @@ const setupRoutes = () => {
 const changeRoute = createAction('CHANGE_ROUTE');
 
 const init = (dispatch) => {
+  setupRoutes();
   if (!isNode) {
     //attach to window.popstate events
     most.fromEvent('onpopstate', window).observe((e) => {
@@ -38,14 +35,14 @@ const init = (dispatch) => {
       dispatch(changeRoute(path));
     });
   }
-  setupRoutes();
 };
 
 const render = (props) => {
-  let route = hash.get(mori.get(props, 'path'));
-  let handler = views[mori.getIn(props, ['routes', route, [0]])].render;
+  let path = mori.get(props, 'path');
+  let route = hash.get(path);
+  let handler = views[mori.getIn(props, ['routes', path, 0])].render;
   return h('div#layout', [
-    nav.view(mori.get(props, 'nav')),
+    nav.render(mori.get(props, 'routes')),
       h('div#main', [
         handler(props, route.params, route.splat)
       ])
