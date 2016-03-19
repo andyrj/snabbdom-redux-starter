@@ -22,7 +22,7 @@ const changeRoute = createAction('CHANGE_ROUTE_UNIVERSAL');
 
 function render(path, callback) {
   initialState.path = path;
-  let store = configureStore(mori.toClj(initialState));
+  let store = configureStore(mori.toClj(initialState), true);
 
   init(store.dispatch);
 

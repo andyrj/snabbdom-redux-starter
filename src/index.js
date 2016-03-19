@@ -15,8 +15,25 @@ const patch = snabbdom.init([
 	require('snabbdom/modules/props')
 ]);
 
+const initStateToClj = (initState) => {
+	let newState = {};
+	let keys = Object.keys(initState);
+	keys.forEach((key) => {
+		switch(typeof initState[key]) {
+			case 'number':
+			case 'string':
+			case 'boolean':
+				newState[key] = initState[key];
+				break;
+			default:
+				newState[key] = mori.toClj(initState[key]);
+				break;
+		}
+	});
+};
+
 const initialState = JSON.parse(document.getElementById('redux-data').innerHTML);
-const store = configureStore(mori.toClj(initialState));
+const store = configureStore(mori.toClj(initialState), false);
 
 let vnode;
 const render = () => {
