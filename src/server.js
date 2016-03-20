@@ -11,9 +11,7 @@ import {isNode, PROD_ENV} from './utils';
 const app = express();
 
 const clearCache = () => {
-  console.log('Clearing /server/ module cache');
   Object.keys(require.cache).forEach((id) => {
-    console.log(id);
     if (/[\/\\]server[\/\\]/.test(id)) {
       delete require.cache[id];
     }
@@ -22,24 +20,14 @@ const clearCache = () => {
 
 if (!PROD_ENV) {
   let compiler = webpack(webpackConfig);
-  let watcher = chokidar.watch('./server');
+  let watcher = chokidar.watch('./src');
 
   app.use(webpackDevMiddleware(compiler, {
-    hot: true,
-    filename: 'bundle.js',
-    publicPath: '/dist/',
-    stats: {
-      colors: true,
-    },
-    historyApiFallback: true,
+    noInfo: true,
+    publicPath: webpackConfig.output.publicPath,
   }));
 
-  app.use(webpackHotMiddleware(compiler, {
-    log: console.log,
-    path: '/__webpack_hmr',
-    heartbeat: 10 * 1000
-  }));
-
+  app.use(webpackHotMiddleware(compiler));
   watcher.on('ready', () => {
     watcher.on('all', () => {
       clearCache();
@@ -55,10 +43,11 @@ app.use(favicon(__dirname + '/images/favicon.ico'));
 
 app.use(express.static('dist'));
 
+/*
 app.use((req, res, next) => {
   require('./server/api')(req, res, next);
 });
-
+*/
 app.get('*', (req, res, next) => {
   require('./server/render.js')(req.path, function(err, page) {
     if (err) {

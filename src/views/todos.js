@@ -8,7 +8,13 @@ const init = (dispatch) => {
 };
 
 const render = (props) => {
-  return h('div', 'todos');
+  return h('div', 'todos! 12345');
 };
+
+/*
+if (module.hot) {
+  module.hot.accept();
+}
+*/
 
 module.exports = {init, render};

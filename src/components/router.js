@@ -5,7 +5,9 @@ import { createAction } from 'redux-actions';
 const h = require('snabbdom/h');
 import { isNode } from '../utils';
 import nav from './nav';
-import { views } from '../views/index';
+
+let layout = require('../views/index');
+let views = layout.views;
 
 //using closure here to avoid poluting global scope
 let bSetup = false;
@@ -24,6 +26,7 @@ const setupRoutes = () => {
 const changeRoute = createAction('CHANGE_ROUTE');
 
 const init = (dispatch) => {
+  layout.init(dispatch);
   setupRoutes();
   if (!isNode) {
     //attach to window.popstate events
@@ -49,4 +52,13 @@ const render = (props) => {
     ]);
 };
 
+/*
+if (module.hot) {
+  module.hot.accept('../views/index', (comp) => {
+    console.log('hot reloaded views');
+    layout = require('../views/index');
+    views = layout.views;
+  });
+}
+*/
 module.exports = {init, render, changeRoute};
