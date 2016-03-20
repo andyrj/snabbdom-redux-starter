@@ -45,7 +45,7 @@ const render = (props) => {
   let route = hash.get(path);
   let handler = views[mori.getIn(props, ['routes', path, 0])].render;
   return h('div#layout', [
-    nav.render(mori.get(props, 'routes')),
+    nav.render(mori.get(props, 'routes'), path),
       h('div#main', [
         handler(props, route.params, route.splat)
       ])
