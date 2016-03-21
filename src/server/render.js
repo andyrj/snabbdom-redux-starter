@@ -1,3 +1,4 @@
+'use strict';
 import mori from 'mori';
 import router from '../components/router';
 import configureStore from '../store';
@@ -27,12 +28,13 @@ function render(path, callback) {
   init(store.dispatch);
 
   let data = JSON.stringify(mori.toJs(store.getState()));
+  //TODO: update to render the router in the root element
   let root = toHTML(h('div', 'server side render'));
   let html = `
     <!doctype html>
     <html>
       <head>
-        <title>AJCES</title>
+        <title>Starter!</title>
         <script src='/mori.min.js'></script>
         <script id='redux-data' type='application/json'>
           ${data}

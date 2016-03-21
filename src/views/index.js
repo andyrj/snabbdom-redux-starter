@@ -1,3 +1,4 @@
+'use strict';
 import counters from './counters';
 import todos from './todos';
 

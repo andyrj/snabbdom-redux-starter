@@ -1,20 +1,19 @@
 'use strict';
 import most from 'most';
+import { isNode } from '../utils';
 
 const h = require('snabbdom/h');
 
 const init = (dispatch) => {
-  // stream.filter();
+  if (!isNode) {
+    most.fromEvent('click', document).filter((e) => {
+      //TODO: add logic to handle clieck events for todos
+    });
+  }
 };
 
 const render = (props) => {
   return h('div', 'todos! 12345');
 };
-
-/*
-if (module.hot) {
-  module.hot.accept();
-}
-*/
 
 module.exports = {init, render};

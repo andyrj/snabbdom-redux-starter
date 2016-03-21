@@ -1,6 +1,6 @@
 'use strict';
 import most from 'most';
-import {isNode} from '../utils';
+import { isNode } from '../utils';
 const h = require('snabbdom/h');
 
 const init = (dispatch) => {
@@ -14,22 +14,22 @@ const init = (dispatch) => {
       if (e.target.matches('.increment')) {
         dispatch({
           type: 'COUNTER_INCREMENT',
-          id: id
+          payload: id
         });
       } else if (e.target.matches('.decrement')) {
         dispatch({
           type: 'COUNTER_DECREMENT',
-          id: id
+          payload: id
         });
       } else if (e.target.matches('.delete')) {
         dispatch({
           type: 'COUNTER_DELETE',
-          id: id
+          payload: id
         });
       } else if (e.target.matches('.reset')) {
         dispatch({
           type: 'COUNTER_RESET',
-          id: id
+          payload: id
         });
       }
     });

@@ -6,7 +6,9 @@ const h = require('snabbdom/h');
 
 const init = (dispatch) => {
   if (!isNode) {
-    // stream.filter();
+    most.fromEvent('click', document).filter((e) => {
+      //TODO: add logic for handling click events for nav component, must preventDefault
+    });
   }
 };
 
@@ -25,6 +27,7 @@ let links = (props) => {
   });
 }
 
+//TODO: fix styling for currently selected route in menu
 const render = (props, path) => {
   return h('div', [
     h('a#menuLink.menu-link', {props: {href: '#menu'}}, [
@@ -34,10 +37,9 @@ const render = (props, path) => {
       h('div.pure-menu', [
         h('div.pure-menu-heading', {props: {href: '#'}}, 'Starter!'),
         h('ul.pure-menu-list', links(props).map((entry) => {
-          console.log(`${path} === ${entry[0]} = ${path === entry[0]}`);
           return h('li.pure-menu-item', [
             (path === entry[0]) ?
-              h('a.pure-menu-link.active', {props: {href: '#'/*`${entry[0]}``*/}}, entry[1]) :
+              h('a.pure-menu-link.active', {props: {href: `${entry[0]}`}}, entry[1]) :
               h('a.pure-menu-link', {props: {href: `${entry[0]}`}}, entry[1])
           ]);
         })),

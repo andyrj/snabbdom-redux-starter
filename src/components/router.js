@@ -1,3 +1,4 @@
+'use strict';
 import mori from 'mori';
 import most from 'most';
 import HttpHash from 'http-hash';

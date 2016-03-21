@@ -1,3 +1,4 @@
+'use strict';
 import router from './router';
 import nav from './nav';
 import counter from './counter';
