@@ -1,7 +1,6 @@
 'use strict';
 import most from 'most';
 import HttpHash from 'http-hash';
-import { createAction } from 'redux-actions';
 const h = require('snabbdom/h');
 import { isNode } from '../utils';
 import nav from './nav';
@@ -23,8 +22,6 @@ const setupRoutes = () => {
   }
 }
 
-const changeRoute = createAction('CHANGE_ROUTE');
-
 const init = (dispatch) => {
   layout.init(dispatch);
   setupRoutes();
@@ -35,7 +32,10 @@ const init = (dispatch) => {
       let path = segments.slice(3, segments.length).reduce((prev, curr) => {
         return prev + '/' + curr;
       });
-      dispatch(changeRoute(path));
+      dispatch({
+        type: 'CHANGE_ROUTE',
+        path: path
+      });
     });
   }
 };

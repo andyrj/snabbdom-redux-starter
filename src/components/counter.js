@@ -13,23 +13,11 @@ const init = (dispatch) => {
       let id = e.srcElement.id;
       if (e.target.matches('.increment')) {
         dispatch({
-          type: 'COUNTER_INCREMENT',
-          payload: id
+          type: 'COUNTER_INCREMENT'
         });
       } else if (e.target.matches('.decrement')) {
         dispatch({
-          type: 'COUNTER_DECREMENT',
-          payload: id
-        });
-      } else if (e.target.matches('.delete')) {
-        dispatch({
-          type: 'COUNTER_DELETE',
-          payload: id
-        });
-      } else if (e.target.matches('.reset')) {
-        dispatch({
-          type: 'COUNTER_RESET',
-          payload: id
+          type: 'COUNTER_DECREMENT'
         });
       }
     });
