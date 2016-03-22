@@ -1,7 +1,7 @@
 'use strict';
 import {createStore, applyMiddleware, compose} from 'redux';
 import thunk from 'redux-thunk';
-import reducer from './reducer';
+import reducer from './reducers/index';
 import {PROD_ENV, isNode} from './utils';
 
 export default function configureStore(initialState, bNode) {
