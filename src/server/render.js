@@ -1,8 +1,7 @@
 'use strict';
 import router from '../components/router';
 import configureStore from '../store';
-import { init } from '../components/index';
-import { createAction } from 'redux-actions';
+import {init} from '../components/index';
 
 const h = require('snabbdom/h');
 const toHTML = require('snabbdom-to-html');
@@ -17,8 +16,8 @@ const initialState = {
   }
 };
 
-//TODO: use redux saga instead of thunks and acations
-const changeRoute = createAction('CHANGE_ROUTE_UNIVERSAL');
+// TODO: use redux saga instead of thunks and acations
+// const changeRoute = createAction('CHANGE_ROUTE_UNIVERSAL');
 
 function render(path, callback) {
   initialState.path = path;
@@ -27,7 +26,7 @@ function render(path, callback) {
   init(store.dispatch);
 
   let data = JSON.stringify(store.getState());
-  //TODO: update to render the router in the root element
+  // TODO: update to render the router in the root element
   let root = toHTML(h('div', 'server side render'));
   let html = `
     <!doctype html>

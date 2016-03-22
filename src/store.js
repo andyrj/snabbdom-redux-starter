@@ -2,7 +2,7 @@
 import {createStore, applyMiddleware, compose} from 'redux';
 import thunk from 'redux-thunk';
 import reducer from './reducers/index';
-import {PROD_ENV, isNode} from './utils';
+import {PROD_ENV} from './utils';
 
 export default function configureStore(initialState, bNode) {
 	if (bNode || PROD_ENV) {
@@ -12,7 +12,7 @@ export default function configureStore(initialState, bNode) {
 		const store = createStoreWithMiddleware(reducer, initialState);
 
 		return store;
-	} else { //for security and compatability
+	} else {
 		const createStoreWithMiddleware = compose(
 			applyMiddleware(thunk),
 			window.devToolsExtension ? window.devToolsExtension() : f => f

@@ -1,5 +1,4 @@
 'use strict';
-import most from 'most';
 import configureStore from './store';
 import './styles/pure-min.css';
 import './styles/side-menu.css';
@@ -8,7 +7,6 @@ let views = require('./views/index.js');
 let router = components.router;
 
 let snabbdom = require('snabbdom');
-const h = require('snabbdom/h');
 const patch = snabbdom.init([
 	require('snabbdom/modules/class'),
 	require('snabbdom/modules/props')
@@ -25,15 +23,14 @@ const render = () => {
 store.subscribe(render);
 
 window.onload = function() {
-	components.init(store.dispatch);
+  components.init(store.dispatch);
 	views.init(store.dispatch);
 	render(vnode = document.getElementById('root'));
 };
 
 if (module.hot) {
-	module.hot.accept(['./views/index.js', './components/index.js'], (comp) => {
-		console.log('hot accepted: ' + this);
-		router = require('./components/router.js')
+	module.hot.accept(['./views/index.js', './components/index.js'], () => {
+		router = require('./components/router.js');
 		render();
 	});
 }

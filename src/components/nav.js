@@ -1,6 +1,6 @@
 'use strict';
 import most from 'most';
-import { isNode } from '../utils';
+import {isNode} from '../utils';
 
 const h = require('snabbdom/h');
 
@@ -22,12 +22,13 @@ let links = (props) => {
     if (routes[key][1]) {
       return key;
     }
+    return false;
   }).map((key) => {
     return [key, capitalizeFirst(routes[key][0])];
   });
-}
+};
 
-//TODO: fix styling for currently selected route in menu
+// TODO: fix styling for currently selected route in menu
 const render = (props, path) => {
   return h('div', [
     h('a#menuLink.menu-link', {props: {href: '#menu'}}, [
@@ -38,9 +39,9 @@ const render = (props, path) => {
         h('div.pure-menu-heading', {props: {href: '#'}}, 'Starter!'),
         h('ul.pure-menu-list', links(props).map((entry) => {
           return h('li.pure-menu-item', [
-            (path === entry[0]) ?
-              h('a.pure-menu-link.active', {props: {href: `${entry[0]}`}}, entry[1]) :
-              h('a.pure-menu-link', {props: {href: `${entry[0]}`}}, entry[1])
+            (path === entry[0])
+            ? h('a.pure-menu-link.active', {props: {href: `${entry[0]}`}}, entry[1])
+            : h('a.pure-menu-link', {props: {href: `${entry[0]}`}}, entry[1])
           ]);
         })),
       ])

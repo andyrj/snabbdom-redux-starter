@@ -1,6 +1,6 @@
 'use strict';
 import most from 'most';
-import { isNode } from '../utils';
+import {isNode} from '../utils';
 
 const h = require('snabbdom/h');
 

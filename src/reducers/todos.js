@@ -2,7 +2,7 @@
 import todo from './todo';
 
 export default function todos(state = [], action) {
-	switch(action.type) {
+	switch (action.type) {
 		case 'ADD_TODO':
 			return [
 				...state,

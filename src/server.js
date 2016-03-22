@@ -6,7 +6,7 @@ import webpack from 'webpack';
 import webpackConfig from '../webpack.config.js';
 import favicon from 'serve-favicon';
 import chokidar from 'chokidar';
-import {isNode, PROD_ENV} from './utils';
+import {PROD_ENV} from './utils';
 
 const app = express();
 

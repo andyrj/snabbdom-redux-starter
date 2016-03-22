@@ -1,7 +1,7 @@
 'use strict';
 import most from 'most';
 import uuid from 'uuid';
-import { isNode } from '../utils';
+import {isNode} from '../utils';
 
 const h = require('snabbdom/h');
 
@@ -11,6 +11,7 @@ const init = (dispatch) => {
       if (e.target && e.target.matches) {
         return e.target.matches('.counter');
       }
+      return false;
     }).observe((e) => {
       if (e.target.matches('.add')) {
         dispatch({
