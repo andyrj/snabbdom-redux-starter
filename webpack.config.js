@@ -12,14 +12,11 @@ var config = {
 			'./src/index.js'
 		]
 	},
-	externals: {
-		mori: 'mori'
-	},
 	module: {
 		loaders: [
 			{
 				test: /\.js/,
-				exclude: /(node_modules|bower_components|mori\.min\.js)/,
+				exclude: /(node_modules|bower_components)/,
 				loader: 'babel-loader'
 			},
       { test: /\.css$/, loader: 'style-loader!css-loader' },

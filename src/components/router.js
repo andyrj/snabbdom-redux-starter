@@ -1,5 +1,4 @@
 'use strict';
-import mori from 'mori';
 import most from 'most';
 import HttpHash from 'http-hash';
 import { createAction } from 'redux-actions';
@@ -42,24 +41,15 @@ const init = (dispatch) => {
 };
 
 const render = (props) => {
-  let path = mori.get(props, 'path');
+  let path = props.path;
   let route = hash.get(path);
-  let handler = views[mori.getIn(props, ['routes', path, 0])].render;
+  let handler = views[props.routes[path][0]].render;
   return h('div#layout', [
-    nav.render(mori.get(props, 'routes'), path),
+    nav.render(props.routes, path),
       h('div#main', [
         handler(props, route.params, route.splat)
       ])
     ]);
 };
 
-/*
-if (module.hot) {
-  module.hot.accept('../views/index', (comp) => {
-    console.log('hot reloaded views');
-    layout = require('../views/index');
-    views = layout.views;
-  });
-}
-*/
 module.exports = {init, render, changeRoute};

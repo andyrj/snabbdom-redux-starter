@@ -1,5 +1,4 @@
 'use strict';
-import mori from 'mori';
 import most from 'most';
 import {isNode} from '../utils';
 const h = require('snabbdom/h');

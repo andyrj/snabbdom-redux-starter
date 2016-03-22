@@ -17,7 +17,7 @@ const capitalizeFirst = (string) => {
 };
 
 let links = (props) => {
-  let routes = mori.toJs(props);
+  let routes = props;
   return Object.keys(routes).filter((key) => {
     if (routes[key][1]) {
       return key;

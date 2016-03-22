@@ -1,5 +1,4 @@
 'use strict';
-import mori from 'mori';
 import router from '../components/router';
 import configureStore from '../store';
 import { init } from '../components/index';
@@ -23,11 +22,11 @@ const changeRoute = createAction('CHANGE_ROUTE_UNIVERSAL');
 
 function render(path, callback) {
   initialState.path = path;
-  let store = configureStore(mori.toClj(initialState), true);
+  let store = configureStore(initialState, true);
 
   init(store.dispatch);
 
-  let data = JSON.stringify(mori.toJs(store.getState()));
+  let data = JSON.stringify(store.getState());
   //TODO: update to render the router in the root element
   let root = toHTML(h('div', 'server side render'));
   let html = `
@@ -35,7 +34,6 @@ function render(path, callback) {
     <html>
       <head>
         <title>Starter!</title>
-        <script src='/mori.min.js'></script>
         <script id='redux-data' type='application/json'>
           ${data}
         </script>

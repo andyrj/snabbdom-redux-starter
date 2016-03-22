@@ -37,9 +37,8 @@ const init = (dispatch) => {
 };
 
 const render = (props) => {
-  let j = mori.toJs(props);
-  let id = j[0];
-  let val = j[1];
+  let id = props[0];
+  let val = props[1];
   return h('div', [
     h(`button#${id}.counter.decrement`, '-'),
     h(`span#${id}.counter.count`, val),
