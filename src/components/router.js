@@ -22,7 +22,8 @@ const setupRoutes = (routes) => {
 
 let changeRoute;
 
-const init = (store, dispatch) => {
+const init = (store) => {
+  let dispatch = store.dispatch;
   layout.init(dispatch);
   setupRoutes(store.getState().routes);
   changeRoute = (path) => {

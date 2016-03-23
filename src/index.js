@@ -13,7 +13,7 @@ const patch = snabbdom.init([
 ]);
 
 const initialState = JSON.parse(document.getElementById('redux-data').innerHTML);
-const store = configureStore(initialState, false);
+const store = configureStore(initialState);
 
 let vnode;
 const render = () => {
@@ -23,8 +23,8 @@ const render = () => {
 store.subscribe(render);
 
 window.onload = function() {
-  components.init(store.dispatch);
-	views.init(store.dispatch);
+  components.init(store);
+	views.init(store);
 	render(vnode = document.getElementById('root'));
 };
 

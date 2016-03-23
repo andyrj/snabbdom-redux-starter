@@ -1,7 +1,8 @@
 'use strict';
 import router from '../components/router';
 import configureStore from '../store';
-import {init} from '../components/index';
+import components from '../components/index';
+import views from '../views/index';
 
 const h = require('snabbdom/h');
 const toHTML = require('snabbdom-to-html');
@@ -21,9 +22,10 @@ const initialState = {
 
 function render(path, callback) {
   initialState.path = path;
-  let store = configureStore(initialState, true);
+  let store = configureStore(initialState);
 
-  init(store.dispatch);
+  components.init(store);
+  views.init(store);
 
   let data = JSON.stringify(store.getState());
   // TODO: update to render the router in the root element

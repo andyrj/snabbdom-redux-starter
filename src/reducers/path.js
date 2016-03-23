@@ -1,5 +1,5 @@
 'use strict';
-export default function counter(state = '/', action) {
+export default function path(state = '/', action) {
 	switch (action.type) {
 		case 'CHANGE_ROUTE':
 			return action.path;
@@ -7,3 +7,4 @@ export default function counter(state = '/', action) {
 			return state;
 	}
 }
+

@@ -2,9 +2,9 @@
 import counters from './counters';
 import todos from './todos';
 
-const init = (dispatch) => {
-  counters.init(dispatch);
-  todos.init(dispatch);
+const init = (store) => {
+  counters.init(store);
+  todos.init(store);
 };
 
 const views = {
@@ -16,3 +16,4 @@ module.exports = {
   init,
   views
 };
+

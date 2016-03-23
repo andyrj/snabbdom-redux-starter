@@ -4,7 +4,8 @@ import {isNode} from '../utils';
 
 const h = require('snabbdom/h');
 
-const init = (dispatch) => {
+const init = (store) => {
+  let dispatch = store.dispatch;
   if (!isNode) {
     most.fromEvent('click', document).filter((e) => {
       //TODO: add logic to handle clieck events for todos

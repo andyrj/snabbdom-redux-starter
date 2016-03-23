@@ -4,7 +4,8 @@ import {isNode} from '../utils';
 
 const h = require('snabbdom/h');
 
-const init = (dispatch) => {
+const init = (store) => {
+  let dispatch = store.dispatch;
   if (!isNode) {
     most.fromEvent('click', document).filter((e) => {
       //TODO: add logic for handling click events for nav component, must preventDefault
@@ -38,10 +39,8 @@ const render = (props, path) => {
       h('div.pure-menu', [
         h('div.pure-menu-heading', {props: {href: '#'}}, 'Starter!'),
         h('ul.pure-menu-list', links(props).map((entry) => {
-          return h('li.pure-menu-item', [
-            (path === entry[0])
-            ? h('a.pure-menu-link.active', {props: {href: `${entry[0]}`}}, entry[1])
-            : h('a.pure-menu-link', {props: {href: `${entry[0]}`}}, entry[1])
+          return h('li.pure-menu-item', {class: {active: (path === entry[0])}}, [
+            h('a.pure-menu-link', {props: {href: `${entry[0]}`}}, entry[1])
           ]);
         })),
       ])
