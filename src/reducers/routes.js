@@ -1,7 +1,12 @@
 'use strict';
-export default function routes(state = '/', action) {
+import i from 'icepick';
+
+export default function routes(state = {}, action) {
 	switch (action.type) {
-		// TODO: add reducer actions for adding and removing routes?
+    case 'ADD_ROUTE':
+      return i.assoc(state, action.path, {name: action.name, isMenuItem: action.isMenuItem});
+    case 'DEL_ROUTE':
+      return i.dissoc(state, action.path);
     default:
 			return state;
 	}

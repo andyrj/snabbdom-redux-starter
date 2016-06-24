@@ -1,4 +1,5 @@
 'use strict';
+/* TODO: replace this with redux-tcomb style reducer logic
 export default function todo(state, action) {
 	switch(action.type) {
 		case 'ADD_TODO':
@@ -20,3 +21,4 @@ export default function todo(state, action) {
 			return state;
 	}
 }
+*/

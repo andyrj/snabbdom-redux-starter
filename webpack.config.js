@@ -1,28 +1,42 @@
 var webpack = require('webpack');
 var path = require('path');
+var autoprefixer = require('autoprefixer');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var PROD_ENV = process.env.NODE_ENV === 'production' ? 1 : 0;
 
-var config = {
+var clientConfig = {
+  name: 'client',
 	entry: {
-		client: PROD_ENV ? [
-			'./src/index.js'
-		] : [
-			'webpack/hot/dev-server',
-			'webpack-hot-middleware/client',
+		client: [
 			'./src/index.js'
 		]
 	},
-	module: {
-		loaders: [
+	externals: [
+    'fs'
+  ],
+  module: {
+		loaders: PROD_ENV ? [
 			{
-				test: /\.js/,
-				exclude: /(node_modules|bower_components)/,
+				test: /\.js$/,
+        include: path.resolve(__dirname, './src'),
+				exclude: /(node_modules|test|dist)/,
 				loader: 'babel-loader'
 			},
-      { test: /\.css$/, loader: 'style-loader!css-loader' },
-      { test: /\.(png|jpg|svg)$/, loader: 'url-loader?limit=8192' }
+      {test: /\.scss$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader!postcss-loader")},
+      {test: /\.(png|jpg)$/, loader: 'url-loader?limit=10240'},
+      {test: /\.(txt)$/, loader: 'raw-loader'}
+    ] : [
+			{
+				test: /\.js$/,
+				exclude: /(node_modules|test|dist)/,
+				loader: 'babel-loader'
+			},
+      {test: /\.scss$/, loader: "style-loader!css-loader!sass-loader!postcss-loader"},
+      {test: /\.(png|jpg)$/, loader: 'url-loader?limit=10240'},
+      {test: /\.(txt|html)$/, loader: 'raw-loader'}
 		]
 	},
+  postcss: [ autoprefixer({ browsers: ['last 2 versions'] })],
 	resolve: {
 		modulesDirectories: ['node_modules', 'bower_components']
 	},
@@ -31,27 +45,35 @@ var config = {
 	},
 	devServer: {
 		host: 'localhost',
-		port: 8080,
+    hot: true,
+    port: 8080,
 		contentBase: './dist/',
-		proxy: {
-			'/api/*': 'http://localhost:3000'
-		}
 	},
-	devtool: PROD_ENV ? [] : ["source-map"],
-	output: {
-		/*publicPath: './dist/',*/
+	devtool: PROD_ENV ? [] : ['inline-source-map'],
+	output: PROD_ENV ? {
+    publicPath: 'https://static.ajces.com/',
+    path: path.join(__dirname, 'dist'),
+    filename: 'bundle.[hash].js'
+  }: {
+		publicPath: 'http://localhost:8080/',
 		path: path.join(__dirname, 'dist'),
 		filename: 'bundle.js'
 	},
 	plugins: PROD_ENV ? [
-		new webpack.DefinePlugin({'process.env.NODE_ENV': '"production"'}),
-		new webpack.optimize.OccurenceOrderPlugin()
-	] : [
+		new webpack.IgnorePlugin(/jsdom$/),
+    new webpack.DefinePlugin({'process.env.NODE_ENV': '"production"'}),
+    new ExtractTextPlugin("style.[hash].css", {
+      allChunks: true
+    }),
+		new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.NoErrorsPlugin()
+  ] : [
+		new webpack.IgnorePlugin(/jsdom$/),
 		new webpack.DefinePlugin({'process.env.NODE_ENV': '"development"'}),
 		new webpack.optimize.OccurenceOrderPlugin(),
-		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoErrorsPlugin()
 	]
 };
 
-module.exports = config;
+
+module.exports = clientConfig;

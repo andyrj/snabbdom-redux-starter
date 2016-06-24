@@ -2,13 +2,15 @@
 import router from './router';
 import nav from './nav';
 import counter from './counter';
-import todo from './todo';
+import todo from './counter';
 
 const init = (store) => {
-  router.init(store);
-  nav.init(store);
-  counter.init(store);
-  todo.init(store);
+  let events = [];
+  events.push(router.init(store));
+  events.push(nav.init(store));
+  events.push(counter.init(store));
+  events.push(todo.init(store));
+  return events;
 };
 
 module.exports = {

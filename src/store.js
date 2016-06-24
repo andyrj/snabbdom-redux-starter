@@ -1,24 +1,32 @@
 'use strict';
 import {createStore, applyMiddleware, compose} from 'redux';
-import thunk from 'redux-thunk';
-import reducer from './reducers/index';
 import {isNode, PROD_ENV} from './utils';
+import rootReducer from './reducers';
+import createSagaMiddleware from 'redux-saga';
+
+const sagas = createSagaMiddleware();
 
 export default function configureStore(initialState) {
-	if (isNode || PROD_ENV) {
-		const createStoreWithMiddleware = compose(
-			applyMiddleware(thunk)
-		)(createStore);
-		const store = createStoreWithMiddleware(reducer, initialState);
+  let createStoreWithMiddleware;
+  if (isNode || PROD_ENV) {
+    createStoreWithMiddleware = compose(
+      applyMiddleware(sagas)
+    )(createStore);
+  } else {
+    createStoreWithMiddleware = compose(
+      applyMiddleware(sagas),
+      window.devToolsExtension ? window.devToolsExtension() : f => f
+    )(createStore);
+  }
 
-		return store;
-	} else {
-		const createStoreWithMiddleware = compose(
-			applyMiddleware(thunk),
-			window.devToolsExtension ? window.devToolsExtension() : f => f
-		)(createStore);
-		const store = createStoreWithMiddleware(reducer, initialState);
+  const store = createStoreWithMiddleware(rootReducer, initialState);
 
-		return store;
-	}
+  if (module.hot) {
+    module.hot.accept('./reducers', () => {
+      const nextRootReducer = require('./reducers');
+      store.replaceReducer(nextRootReducer);
+    });
+  }
+
+  return {store, sagas};
 }

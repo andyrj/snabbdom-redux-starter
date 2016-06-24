@@ -101,7 +101,12 @@
         "max-len": "off",
         "max-nested-callbacks": "error",
         "max-params": "off",
-        "max-statements": "error",
+        "max-statements": [
+          "error",
+          {
+            "maximum": 20
+          }
+        ],
         "new-parens": "error",
         "newline-after-var": "off",
         "newline-before-return": "off",
@@ -112,6 +117,7 @@
         "no-caller": "error",
         "no-catch-shadow": "error",
         "no-confusing-arrow": "error",
+        "no-console": "off",
         "no-continue": "error",
         "no-div-regex": "error",
         "no-else-return": "off",
@@ -169,7 +175,7 @@
         "no-shadow": "error",
         "no-shadow-restricted-names": "error",
         "no-spaced-func": "error",
-        "no-sync": "error",
+        "no-sync": "off",
         "no-ternary": "off",
         "no-throw-literal": "error",
         "no-trailing-spaces": "error",
@@ -184,7 +190,7 @@
         "no-useless-concat": "error",
         "no-useless-constructor": "error",
         "no-var": "off",
-        "no-void": "error",
+        "no-void": "off",
         "no-warning-comments": "off",
         "no-whitespace-before-property": "off",
         "no-with": "error",

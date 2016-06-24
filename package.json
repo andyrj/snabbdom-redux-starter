@@ -1,55 +1,25 @@
 {
   "name": "snabbdom-redux-starter",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "starter kit for snabbdom redux project, implementing yet another todo app",
   "main": "index.js",
   "scripts": {
     "postinstall": "mkdir -p dist/ && npm run clean",
-    "clean": "rm -f dist/*.js && rm -f dist/*.gz && rm -f dist/*.map",
-    "build": "npm run clean && better-npm-run dev",
-    "build:prod": "npm run clean && better-npm-run prod",
-    "build:watch": "npm run clean && better-npm-run dev-watch",
-    "lint": "eslint src/; exit 0",
-    "lint:fix": "eslint --fix src/; exit 0",
-    "start": "npm run build && better-npm-run start-dev",
-    "start:prod": "npm run build:prod && better-npm-run start-prod",
-    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js 'test/**/*.@(js|jsx)'",
-    "test:cov": "babel-node ./node_modules/.bin/isparta cover _mocha -- --compilers js:babel-core/register  --require ./test/test_helper.js 'test/**/*.@(js|jsx)' && rm -rf ~/Downloads/coverage && mv ./coverage ~/Downloads/",
-    "test:codacy": "babel-node ./node_modules/.bin/isparta cover _mocha --report lcovonly -- --compilers js:babel-core/register  --require ./test/test_helper.js 'test/**/*.@(js|jsx)' && cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage && rm -rf ./coverage",
-    "test:watch": "npm run test -- --watch",
+    "clean": "rm -f dist/*",
+    "build": "npm run clean && webpack --config webpack.config.js && webpack --config webpack.server.config.js",
+    "build:prod": "npm run clean && NODE_ENV=production webpack -p --config webpack.config.js && NODE_ENV=production webpack --config webpack.server.config.js",
+    "build:watch": "npm run clean && webpack --config webpack.config.js && webpack -w --config webpack.server.config.js",
+    "build:static": "NODE_ENV=production webpack --config webpack.static.config.js",
+    "build:test": "webpack --config webpack.test.config.js",
+    "build:test-node": "webpack --config webpack.test.node.config.js",
+    "lint": "eslint src/;",
+    "lint:fix": "eslint --fix src/;",
+    "start": "webpack --config webpack.server.config.js -w & sleep 10; nodemon --debug dist/server.js --watch dist/server.js & node-inspector --web-port=9000 & webpack-dev-server --config webpack.config.js --inline --hot --watch",
+    "start:prod": "NODE_ENV=production node dist/server.js",
+    "start:static": "rm -rf site/ && mkdir -p site/ && npm run build:static && NODE_ENV=production node dist/static.js",
+    "test": "webpack --config webpack.test.node.config.js && mocha ./test/test.node.bundle.js",
+    "test:dev": "webpack-dev-server --config webpack.test.config.js",
     "test:nsp": "nsp check"
-  },
-  "betterScripts": {
-    "dev": {
-      "command": "webpack",
-      "env": {
-        "NODE_ENV": "development"
-      }
-    },
-    "dev-watch": {
-      "command": "webpack -w",
-      "env": {
-        "NODE_ENV": "development"
-      }
-    },
-    "prod": {
-      "command": "webpack -p",
-      "env": {
-        "NODE_ENV": "production"
-      }
-    },
-    "start-dev": {
-      "command": " babel-node src/server.js",
-      "env": {
-        "NODE_ENV": "development"
-      }
-    },
-    "start-prod": {
-      "command": "babel-node src/server.js",
-      "env": {
-        "NODE_ENV": "production"
-      }
-    }
   },
   "author": "Andy Johnson <andyrjohnson82@gmail.com>",
   "license": "MIT",
@@ -60,48 +30,47 @@
     ]
   },
   "dependencies": {
+    "es6-promise": "^3.2.1",
+    "express": "^4.14.0",
     "http-hash": "^2.0.0",
-    "most": "^0.18.3",
-    "node-srp": "0.0.1",
+    "icepick": "^1.2.0",
+    "isomorphic-fetch": "^2.2.1",
     "redux": "^3.3.1",
-    "redux-saga": "^0.9.4",
-    "redux-thunk": "^2.0.1",
-    "rest": "^1.3.1",
-    "snabbdom": "^0.4.0",
-    "snabbdom-to-html": "^2.1.3",
-    "uuid": "^2.0.1",
-    "when": "^3.7.7"
+    "redux-saga": "^0.10.5",
+    "redux-tcomb": "^0.1.6",
+    "snabbdom": "^0.5.0",
+    "snabbdom-to-html": "^2.1.3"
   },
   "devDependencies": {
     "ansi-to-html-umd": "^0.4.2",
+    "autoprefixer": "^6.3.6",
     "babel": "^6.5.2",
     "babel-cli": "^6.5.1",
     "babel-core": "^6.5.2",
     "babel-loader": "^6.2.4",
+    "babel-plugin-transform-regenerator": "^6.9.0",
+    "babel-polyfill": "^6.9.1",
     "babel-preset-es2015": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
-    "better-npm-run": "0.0.8",
     "chai": "^3.5.0",
-    "chokidar": "^1.4.3",
-    "codacy-coverage": "^1.1.3",
     "css-loader": "^0.23.1",
-    "deep-freeze-strict": "^1.1.1",
-    "eslint": "^2.3.0",
-    "eslint-config-google": "^0.4.0",
-    "file-loader": "^0.8.5",
-    "isparta": "^4.0.0",
-    "istanbul": "^0.4.2",
-    "jsdom": "^8.0.4",
+    "eslint": "^2.7.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
     "mocha": "^2.4.5",
-    "mocha-lcov-reporter": "^1.2.0",
+    "mocha-loader": "^0.7.1",
+    "node-inspector": "^0.12.8",
+    "node-sass": "^3.4.2",
+    "nodemon": "^1.9.1",
     "nsp": "^2.2.1",
-    "serve-favicon": "^2.3.0",
+    "null-loader": "^0.1.1",
+    "postcss-loader": "^0.9.1",
+    "raw-loader": "^0.5.1",
+    "resolve-url-loader": "^1.4.3",
+    "sass-loader": "^3.2.0",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
-    "watch": "^0.17.1",
     "webpack": "^1.12.14",
-    "webpack-dev-middleware": "^1.5.1",
-    "webpack-dev-server": "^1.14.1",
-    "webpack-hot-middleware": "^2.8.0"
+    "webpack-dev-server": "^1.14.1"
   }
 }

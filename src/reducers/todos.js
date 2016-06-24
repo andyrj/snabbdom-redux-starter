@@ -1,4 +1,5 @@
 'use strict';
+/* TODO: replace this with redux-tcomb style reducer logic
 import todo from './todo';
 
 export default function todos(state = [], action) {
@@ -14,3 +15,4 @@ export default function todos(state = [], action) {
 			return state;
 	}
 }
+*/
