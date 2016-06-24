@@ -3,7 +3,7 @@ import {routes} from '../routes';
 import childProcess from 'child_process';
 
 const home = process.env.HOME;
-const project = `${home}/github/ajces/ajces`;
+const project = `${home}/github/andyrj/snabbdom-redux-starter`;
 const dir = `${project}/site`;
 const base = 'http://localhost:3000';
 
