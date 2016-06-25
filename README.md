@@ -1,12 +1,10 @@
 # snabbdom-redux-starter
 ## version 0.1.0
 **WIP**
-Use at your own peril
+*Note* still in the process of moving over code from a refactor in another project of mine, the counter and todo reducers are going to be rewritten around redux-tcomb and an example redux-saga will be added shortly.
 
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/bfe1f76098834c8490f786e4a677e13a)](https://www.codacy.com/app/andyrjohnson82/snabbdom-redux-starter)
-[![Codacy Badge](https://api.codacy.com/project/badge/coverage/bfe1f76098834c8490f786e4a677e13a)](https://www.codacy.com/app/andyrjohnson82/snabbdom-redux-starter)
 [![David](https://david-dm.org/andyrj/snabbdom-redux-starter.svg)](https://david-dm.org/andyrj/snabbdom-redux-starter)
-
 
 Because when you start over engineering something you might as well go all the way!
 
@@ -24,3 +22,45 @@ Single page universal javascript application utilizing the following technologie
 * Express - Being used to host universal javascript, RESTful api, and development server with HMR.
 * Bourbon/Bitters/Neat - for SCSS style pre-processing.
 * Custom Pre-rendering (static content) - This project can be run either with NodeJS serving the site dynamically, or using src/static/index to output the site/ directory which will be filled with pre-rendered content to hosted however you see fit (github pages, google cloud bucket site, s3 site, apache, nginx, etc...)
+
+## Basic Usage
+
+To begin running and debugging project run: (currently has a ~20 second delay for initial runtime to allow for everything to be compiled and run properly from one command, luckily you only ever need to run this once when you start developing)
+
+npm start
+
+This will start a node-inspector on localhost:9000 for debugging server side code, and the site will be hot module reloading at localhost:3000.
+
+For the in browser test suite run the following:
+
+npm run test:dev
+
+This will launch the webpack in browser mocha test suite runner, it will automatically run only new or test for code you modify, which makes it really performant and nice.
+
+For the nodejs test suite run the following:
+
+npm test
+
+This will create a test bundle at test/test.node.bundle.js and run it with mocha on the command-line.
+
+For eslint run the following:
+
+npm run lint
+npm run lint:fix
+
+This will lint your code and run auto corrections respectively.
+
+If you want to get production ready minified output run:
+
+npm run build:prod
+
+If you would like to generate a static html site based on your production build from abouve run the following commands after a successful production build.
+
+These will need to be in seperate terminals.
+
+npm run start:prod
+npm run start:static
+
+static html will be output to site/ for all routes you have defined in src/routes.js
+
+I will add more detailed documentation on how everything is put together eventually
